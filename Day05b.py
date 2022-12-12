@@ -84,9 +84,14 @@ def mover(amount,  arrfrom,  arrto):
     # print(amount)
     # print(arrfrom)
     # print(arrto)
+    z = []
     for x in range(0,int(amount)):
         x = arrfromx.pop(0)
-        arrtox.insert(0, x)
+        z.insert(0, x)
+    # z.reverse()
+
+    for xx in z:
+        arrtox.insert(0, xx)
 
  
 

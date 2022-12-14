@@ -1,42 +1,35 @@
 
 import numpy as np
 
-a = []
-
-f = open('input8b.txt')
-
-for line in f:
-    a.append(line.rstrip('\n'))
-
-f.close()
-
-print(a)
 
 
 
+x = range(16)
+
+x = np.reshape(x,(4,4))
+print(x)
+
+print(' ')
+
+print(x[:,0])
 
 
-def split_str(s):
-    return [c for c in s]
 
 
-grid = []
-
-# Print
-for x in a: 
-    print(x)
-    aa = str(x)
-    t = split_str(aa)
-    grid.append(t)
-
-print(grid)
 
 
-for  x in range(0,len(grid)):
-    print(''.join(grid[x]))
 
-print(f'height = {len(grid)}')
-print(f'length = {len(str(a[0][0]))}')
- 
 
-xx = input()
+
+# inb = [[0,0],[1,0],[2,0],[3,0],[4,0]]
+
+# arr = np.array(inb)
+
+# print(arr)
+
+# print(' ')
+
+# brr = arr[1:1,0]
+
+# print(brr)
+

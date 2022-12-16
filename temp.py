@@ -3,35 +3,37 @@ import numpy as np
 import math
 
 
+print(ord('z'))
+print(ord('E'))
 
 
-def reducinator(innumber):
-    # The tests are divisors 23*19*13*17 and all are prime. so dividing evenly by 2,3,4,5,6 should do it?
-    checks = [2,3,4,5,6,7,8,9,10,11,12]
-    for x in checks:
-        if innumber%x == 0:
-            innumber = innumber/x
+# def reducinator(innumber):
+#     # The tests are divisors 23*19*13*17 and all are prime. so dividing evenly by 2,3,4,5,6 should do it?
+#     checks = [2,3,4,5,6,7,8,9,10,11,12]
+#     for x in checks:
+#         if innumber%x == 0:
+#             innumber = innumber/x
     
-    return innumber
+#     return innumber
 
 
 
-print(reducinator(97))
+# print(reducinator(97))
 
 
-monkeylist0 = [79, 98]
-monkeylist1 = [54, 65, 75, 74]
-# monkeylist2 = [79, 60, 97]
-# monkeylist3 = [74]
+# monkeylist0 = [79, 98]
+# monkeylist1 = [54, 65, 75, 74]
+# # monkeylist2 = [79, 60, 97]
+# # monkeylist3 = [74]
 
-for x in range(0,len(monkeylist0)):
-    monkeylist0[x]= reducinator(monkeylist0[x])
+# for x in range(0,len(monkeylist0)):
+#     monkeylist0[x]= reducinator(monkeylist0[x])
 
-for x in range(0,len(monkeylist1)):
-    monkeylist1[x]= reducinator(monkeylist1[x])
+# for x in range(0,len(monkeylist1)):
+#     monkeylist1[x]= reducinator(monkeylist1[x])
 
-print(monkeylist0)
-print(monkeylist1)
+# print(monkeylist0)
+# print(monkeylist1)
 
 # def finddivisors(val):
 #     out = []

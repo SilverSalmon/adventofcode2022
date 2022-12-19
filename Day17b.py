@@ -1,3 +1,13 @@
+import sys
+
+# Open file and load as array a:
+a = []
+f = open('input17b.txt')
+for line in f:
+    a.append(line.rstrip('\n'))
+f.close()
+
+inputstring = a[0]
 
 
 
@@ -10,6 +20,7 @@ class Map:
         self.paths = paths
         self.highpoint = 5
         self.depth = 0
+        self.rockcounter = 1
 
         self.stuff = ['|.......|','|.......|','|.......|','|.......|','|.......|','|.......|','|.......|','#########']
         self.stuffghost = []
@@ -21,14 +32,19 @@ class Map:
             self.stuff.insert(0, '|.......|')
         if direction == 'rock1':
             self.stuff.insert(self.highpoint -3, '|..@@@@.|')
+            self.stuff.insert(self.highpoint -3, '|.......|')
+            self.stuff.insert(self.highpoint -3, '|.......|')
+            self.stuff.insert(self.highpoint -3, '|.......|')
         if direction == 'rock2':
             self.stuff.insert(self.highpoint -3, '|...@...|')
             self.stuff.insert(self.highpoint -3, '|..@@@..|')
             self.stuff.insert(self.highpoint -3, '|...@...|')
+            self.stuff.insert(self.highpoint -3, '|.......|')
         if direction == 'rock3':
             self.stuff.insert(self.highpoint -3, '|..@@@..|')
             self.stuff.insert(self.highpoint -3, '|....@..|')
             self.stuff.insert(self.highpoint -3, '|....@..|')
+            self.stuff.insert(self.highpoint -3, '|.......|')
         if direction == 'rock4':
             self.stuff.insert(self.highpoint -3, '|..@....|')
             self.stuff.insert(self.highpoint -3, '|..@....|')
@@ -37,28 +53,33 @@ class Map:
         if direction == 'rock5':
             self.stuff.insert(self.highpoint -3, '|..@@...|')
             self.stuff.insert(self.highpoint -3, '|..@@...|')
+            self.stuff.insert(self.highpoint -3, '|.......|')
+            self.stuff.insert(self.highpoint -3, '|.......|')
         if direction == 'down':
             if self.checkdown() == True:
-                print('Blocked Turn To #!')
+                # print('Blocked Turn To #!')
                 self.turntostone()
             else:
-                print('Move Down')
+                # print('Move Down')
                 self.movedown()
                 pass
         if direction == '>':
-            print('push right')
+            # print('push right')
             if self.checkright() == True:
-                print('Blocked Right')
+                pass
+                # print('Blocked Right')
             else:
-                print('Move Right')
+                # print('Move Right')
                 self.moveright()
                 pass
         if direction == '<':
-            print('push left')
+            # print('push left')
+            pass
             if self.checkleft() == True:
-                print('Blocked left')
+                pass
+                # print('Blocked left')
             else:
-                print('Move left')
+                # print('Move left')
                 self.moveleft()
                 pass
 
@@ -102,7 +123,7 @@ class Map:
                 yy+=1
             xx+=1
             # input()
-        print(blocked)
+        # print(blocked)
         # input()
         return blocked
 
@@ -146,7 +167,7 @@ class Map:
                 yy+=1
             xx+=1
             # input()
-        print(blocked)
+        # print(blocked)
         # input()
         return blocked
 
@@ -169,8 +190,25 @@ class Map:
             xx+=1
         
         #copy gost over stuff
-        self.stuff = self.stuffghost
-
+        self.stuff = self.stuffghost[:]
+        #init next rock
+        if self.rockcounter%5 == 0:
+            self.move('rock1')
+        if self.rockcounter%5 == 1:
+            self.move('rock2')
+        if self.rockcounter%5 == 2:
+            self.move('rock3')
+        if self.rockcounter%5 == 3:
+            self.move('rock4')
+        if self.rockcounter%5 == 4:
+            self.move('rock5')
+        self.rockcounter +=1
+        # get rid of blank top
+        del self.stuff[0]
+        del self.stuff[0]
+        del self.stuff[0]
+        # del self.stuff[0]
+        self.get_high_point()
 
     
     
@@ -230,7 +268,7 @@ class Map:
                 yy+=1
             xx+=1
             # input()
-        print(blocked)
+        # print(blocked)
         # input()
         return blocked
 
@@ -257,47 +295,44 @@ class Map:
     def get_depth(self):
         self.depth = len(self.stuff) - self.get_high_point()
         return self.depth
+    
+    def getrockcount(self):
+        return self.rockcounter
 
 
 m = Map(4, 4, 0, 0, [1,2,4])
 
 
-m.print_map()
+
 m.move('rock1')
 m.print_map()
-m.move('down')
-m.print_map()
-m.move('down')
-m.print_map()
-m.move('down')
-m.print_map()
-m.move('down')
-m.print_map()
-m.move('rock2')
-m.print_map()
-m.move('down')
-m.print_map()
-m.move('down')
-m.print_map()
-m.move('down')
-m.print_map()
-m.move('down')
-m.print_map()
-m.move('rock3')
-m.print_map()
-m.move('down')
-m.print_map()
-m.move('down')
-m.print_map()
-m.move('down')
-m.print_map()
+input()
+print(m.getrockcount())
 
+inputstringindex = 0
+inplen = len(inputstring)
+# using the above will allow us to repeat over using mod.
+while m.getrockcount() < 2023:
+    # cycle detection
+    if inputstringindex%inplen == 0:
+        m.print_map()
+        input()
+    m.move(inputstring[inputstringindex%inplen])
+    # m.print_map()
+    # input()
+    m.move('down')
+    # m.print_map()
+    # input()
+    print(m.getrockcount())
+    inputstringindex += 1
 
+print(f'The answer is {m.get_depth()} -1')
 
-while True:
-    m.print_map()
-    print(f'The highest rock:{m.get_high_point()} from top. It sits at {m.get_depth()} from bottom.')
+# while True:
+#     m.print_map()
+#     print(f'The highest rock:{m.get_high_point()} from top. It sits at {m.get_depth()} from bottom.')
     
-    direction = input("Enter A Command:")
-    m.move(direction)
+#     direction = input("Enter A Command:")
+#     m.move(direction)
     
+# The correct answer was 3133
